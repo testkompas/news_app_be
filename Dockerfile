@@ -3,8 +3,7 @@ ENV APP_HOME /go/src/github.com/test_kompas/news_app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 COPY . .
-RUN GOOS=linux go build -o app ./cmd/main.go 
-
+RUN GOOS=linux go build -o app ./cmd/
 
 FROM alpine:latest
 WORKDIR /root/
