@@ -134,7 +134,7 @@ func (handler *AuthorsHandler) DeleteAuthor(c *fiber.Ctx) error {
 		return c.SendStatus(400)
 	}
 
-	if err := handler.authorSrv.DeleteAuthor(id); err != nil {
+	if err := handler.authorSrv.DeleteAuthor(uint(id)); err != nil {
 		response := fiber.Map{
 			"result": nil,
 			"error":  err.Error(),

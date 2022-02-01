@@ -9,7 +9,7 @@ type Entity interface {
 }
 
 type BaseEntity struct {
-	ID        int            `json:"id" gorm:"type:int(10);autoIncrement;primaryKey;not null"`
+	ID        uint           `json:"id" gorm:"autoIncrement;primaryKey;not null"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"type:datetime"`
 }
 
@@ -18,6 +18,6 @@ type Pagination struct {
 	PageNo int
 }
 
-func (entity *BaseEntity) SetID(id int) {
+func (entity *BaseEntity) SetID(id uint) {
 	entity.ID = id
 }

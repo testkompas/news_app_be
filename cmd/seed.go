@@ -4,7 +4,7 @@ import (
 	"github.com/test_kompas/news_app/pkg/entity"
 )
 
-func seedAuthors() []int {
+func seedAuthors() []uint {
 	db.AutoMigrate(&entity.Authors{})
 
 	authors := []entity.Authors{
@@ -25,7 +25,7 @@ func seedAuthors() []int {
 		},
 	}
 
-	authorIds := make([]int, 0)
+	authorIds := make([]uint, 0)
 	for _, v := range authors {
 		authorId, err := authorService.AddAuthor(&v)
 		if err != nil {
@@ -37,7 +37,7 @@ func seedAuthors() []int {
 	return authorIds
 }
 
-func seedArticles(authorIds []int) {
+func seedArticles(authorIds []uint) {
 	db.AutoMigrate(&entity.Article{})
 
 	articles := []entity.Article{

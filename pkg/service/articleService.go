@@ -20,7 +20,7 @@ func (srv *ArticleService) FindArticles(query map[string]interface{}, pagination
 	results = make([]entity.Article, 0)
 
 	if v, ok := query["id"]; ok {
-		if value, ok := v.(int); ok && value != 0 {
+		if value, ok := v.(uint); ok && value != 0 {
 
 			if data, e := srv.repo.FindByID(value); e != nil {
 				err = pkg.NewError(
@@ -57,7 +57,7 @@ func (srv *ArticleService) FindArticles(query map[string]interface{}, pagination
 	return
 }
 
-func (srv *ArticleService) AddArticle(article *entity.Article, authorId int) (err *pkg.Errors) {
+func (srv *ArticleService) AddArticle(article *entity.Article, authorId uint) (err *pkg.Errors) {
 
 	if article.Title == "" || article.Body == "" {
 		err = pkg.NewError("article title and content must not be empty", 400)

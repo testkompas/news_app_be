@@ -44,7 +44,7 @@ func (repo *AuthorsRepository) FindByUsername(username string) (data entity.Auth
 	return
 }
 
-func (repo *AuthorsRepository) FindByID(id int) (data entity.Authors, err error) {
+func (repo *AuthorsRepository) FindByID(id uint) (data entity.Authors, err error) {
 	err = repo.db.Where("id = ?", id).Order("id").Find(&data).Error
 	return
 }
@@ -54,12 +54,12 @@ func (repo *AuthorsRepository) AddAuthor(author *entity.Authors) (err error) {
 	return
 }
 
-func (repo *AuthorsRepository) UpdateAuthor(authorId int, author *entity.Authors) (err error) {
+func (repo *AuthorsRepository) UpdateAuthor(authorId uint, author *entity.Authors) (err error) {
 	err = repo.UpdateByID(authorId, author)
 	return
 }
 
-func (repo *AuthorsRepository) DeleteAuthor(authorId int) (err error) {
+func (repo *AuthorsRepository) DeleteAuthor(authorId uint) (err error) {
 	author := entity.Authors{}
 	author.SetID(authorId)
 	err = repo.DeleteByID(&author)

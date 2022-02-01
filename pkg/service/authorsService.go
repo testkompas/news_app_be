@@ -20,7 +20,7 @@ func (srv *AuthorsService) FindAuthors(query map[string]interface{}, pagination 
 	results = make([]entity.Authors, 0)
 
 	if v, ok := query["id"]; ok {
-		if value, ok := v.(int); ok && value != 0 {
+		if value, ok := v.(uint); ok && value != 0 {
 
 			if data, e := srv.repo.FindByID(value); e != nil {
 				err = pkg.NewError(
@@ -57,7 +57,7 @@ func (srv *AuthorsService) FindAuthors(query map[string]interface{}, pagination 
 	return
 }
 
-func (srv *AuthorsService) AddAuthor(author *entity.Authors) (authorId int, err *pkg.Errors) {
+func (srv *AuthorsService) AddAuthor(author *entity.Authors) (authorId uint, err *pkg.Errors) {
 
 	if author.Username == "" || author.Password == "" {
 		err = pkg.NewError("authorname and password field is required", 400)
@@ -100,7 +100,7 @@ func (srv *AuthorsService) AddAuthor(author *entity.Authors) (authorId int, err 
 	return
 }
 
-func (srv *AuthorsService) UpdateAuthor(authorId int, author *entity.Authors) (err *pkg.Errors) {
+func (srv *AuthorsService) UpdateAuthor(authorId uint, author *entity.Authors) (err *pkg.Errors) {
 
 	if e := srv.repo.UpdateAuthor(authorId, author); e != nil {
 		err = pkg.NewError(
@@ -111,7 +111,7 @@ func (srv *AuthorsService) UpdateAuthor(authorId int, author *entity.Authors) (e
 	return
 }
 
-func (srv *AuthorsService) DeleteAuthor(authorId int) (err *pkg.Errors) {
+func (srv *AuthorsService) DeleteAuthor(authorId uint) (err *pkg.Errors) {
 
 	if e := srv.repo.DeleteAuthor(authorId); e != nil {
 		err = pkg.NewError(

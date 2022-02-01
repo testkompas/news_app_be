@@ -107,9 +107,9 @@ func (handler *ArticleHandler) AddArticle(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 
-	authorId := 0
+	var authorId uint
 	if data, ok := payload.Get("author_id"); ok {
-		authorId = data.(int)
+		authorId = data.(uint)
 	}
 
 	if err := handler.articleSrv.AddArticle(&body, authorId); err != nil {

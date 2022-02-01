@@ -31,7 +31,7 @@ func (repo *AuthenticationRepository) FindAll(options *entity.Pagination) (resul
 	return
 }
 
-func (repo *AuthenticationRepository) FindByID(id int) (data entity.Authentication, err error) {
+func (repo *AuthenticationRepository) FindByID(id uint) (data entity.Authentication, err error) {
 	err = repo.db.Where("id = ?", id).Order("id").Find(&data).Error
 	return
 }
@@ -41,7 +41,7 @@ func (repo *AuthenticationRepository) AddToken(authentication *entity.Authentica
 	return
 }
 
-func (repo *AuthenticationRepository) DeleteToken(tokenId int) (err error) {
+func (repo *AuthenticationRepository) DeleteToken(tokenId uint) (err error) {
 	authentication := entity.Authentication{}
 	authentication.SetID(tokenId)
 	err = repo.DeleteByID(&authentication)

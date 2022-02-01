@@ -11,19 +11,19 @@ type Authors struct {
 
 type AuthorsService interface {
 	FindAuthors(map[string]interface{}, *Pagination) ([]Authors, *pkg.Errors)
-	AddAuthor(*Authors) (int, *pkg.Errors)
-	UpdateAuthor(int, *Authors) *pkg.Errors
-	DeleteAuthor(int) *pkg.Errors
+	AddAuthor(*Authors) (uint, *pkg.Errors)
+	UpdateAuthor(uint, *Authors) *pkg.Errors
+	DeleteAuthor(uint) *pkg.Errors
 }
 
 type AuthorsRepository interface {
 	FindByName(string, *Pagination) ([]Authors, error)
 	FindAll(*Pagination) ([]Authors, error)
 	FindByUsername(string) (Authors, error)
-	FindByID(int) (Authors, error)
+	FindByID(uint) (Authors, error)
 	AddAuthor(*Authors) error
-	UpdateAuthor(int, *Authors) error
-	DeleteAuthor(int) error
+	UpdateAuthor(uint, *Authors) error
+	DeleteAuthor(uint) error
 }
 
 func (e *Authors) TableName() string {

@@ -39,7 +39,7 @@ func (repo *ArticleRepository) FindAll(options *entity.Pagination) (results []en
 	return
 }
 
-func (repo *ArticleRepository) FindByID(id int) (data entity.Article, err error) {
+func (repo *ArticleRepository) FindByID(id uint) (data entity.Article, err error) {
 	err = repo.db.Where("id = ?", id).Order("id").Find(&data).Error
 	return
 }
@@ -49,7 +49,7 @@ func (repo *ArticleRepository) AddArticle(article *entity.Article) (err error) {
 	return
 }
 
-func (repo *ArticleRepository) DeleteArticle(articleId int) (err error) {
+func (repo *ArticleRepository) DeleteArticle(articleId uint) (err error) {
 	Article := entity.Article{}
 	Article.SetID(articleId)
 	err = repo.DeleteByID(&Article)

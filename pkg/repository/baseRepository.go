@@ -19,7 +19,7 @@ func (repo *baseRepository) DBInsert(data entity.Entity) (err error) {
 	return
 }
 
-func (repo *baseRepository) UpdateByID(id int, data entity.Entity) (err error) {
+func (repo *baseRepository) UpdateByID(id uint, data entity.Entity) (err error) {
 	err = repo.db.Table(repo.tableName).Where("id = ?", id).Updates(data).Error
 	return
 }

@@ -6,7 +6,7 @@ import (
 )
 
 type Authentication struct {
-	AuthorID   int     `json:"author_id" gorm:"type:int(10);not null"`
+	AuthorID   uint    `json:"author_id" gorm:"type:int(10);not null"`
 	Token      string  `json:"token" gorm:"type:text;not null"`
 	IssuedAt   string  `json:"issued_at" gorm:"type:varchar(20);not null"`
 	ExpiryTime int32   `json:"expiry_time" gorm:"type:int(10);not null"`
@@ -22,9 +22,9 @@ type AuthenticationService interface {
 type AuthenticationRepository interface {
 	FindBytoken(string) (Authentication, error)
 	FindAll(*Pagination) ([]Authentication, error)
-	FindByID(int) (Authentication, error)
+	FindByID(uint) (Authentication, error)
 	AddToken(*Authentication) error
-	DeleteToken(int) error
+	DeleteToken(uint) error
 }
 
 func (e *Authentication) TableName() string {

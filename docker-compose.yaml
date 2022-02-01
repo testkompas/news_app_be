@@ -1,22 +1,5 @@
 version: "3.7"
 services:
-  app_be:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 8100:8100
-    environment:
-      - MYSQL_USER=user123
-      - MYSQL_PASS=2022Mysql!!
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
-      - DB_NAME=news_app
-    depends_on:
-      - mysql
-    networks:
-      - web
-
   mysql:
     image: mysql:8.0
     restart: always
@@ -24,11 +7,8 @@ services:
       - dbdata:/var/lib/mysql
     ports:
       - 3307:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=XmQrkvWyCXkrzq7
-      - MYSQL_DATABASE=news_app
-      - MYSQL_USER=user123
-      - MYSQL_PASSWORD=2022Mysql!!
+    env_file:
+      - mysql.env
     networks:
       - web
 
@@ -37,6 +17,20 @@ services:
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - web
+
+  app_be:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8100:8100
+    env_file:
+      - app.env
+    depends_on:
+      - mysql
+    restart: on-failure
     networks:
       - web
 
