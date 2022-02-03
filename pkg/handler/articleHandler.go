@@ -20,6 +20,7 @@ func NewArticleHandler(authenticationSrv entity.AuthenticationService, articleSr
 
 func (handler *ArticleHandler) Find(c *fiber.Ctx) error {
 	var err *pkg.Errors
+	var e error
 
 	authToken := c.Get("Authorization")
 	if _, err := handler.authenticationSrv.Authorize(authToken); err != nil {
@@ -44,23 +45,33 @@ func (handler *ArticleHandler) Find(c *fiber.Ctx) error {
 		query["name"] = name
 	}
 
-	limitPerPage, e := strconv.Atoi(c.Query("limit_per_page"))
-	if e != nil {
-		response := fiber.Map{
-			"result": nil,
-			"error":  "Invalid Parameter",
+	limit := c.Query("limit_per_page")
+	page := c.Query("page_no")
+
+	limitPerPage := 0
+	pageNo := 0
+	if limit != "" {
+		limitPerPage, e = strconv.Atoi(c.Query("limit_per_page"))
+		if e != nil {
+			response := fiber.Map{
+				"result": nil,
+				"error":  "Invalid Parameter",
+			}
+			c.JSON(response)
+			return c.SendStatus(400)
 		}
-		c.JSON(response)
-		return c.SendStatus(400)
 	}
-	pageNo, e := strconv.Atoi(c.Query("page_no"))
-	if e != nil {
-		response := fiber.Map{
-			"result": nil,
-			"error":  "Invalid Parameter",
+
+	if page != "" {
+		pageNo, e = strconv.Atoi(c.Query("page_no"))
+		if e != nil {
+			response := fiber.Map{
+				"result": nil,
+				"error":  "Invalid Parameter",
+			}
+			c.JSON(response)
+			return c.SendStatus(400)
 		}
-		c.JSON(response)
-		return c.SendStatus(400)
 	}
 
 	pagination := &entity.Pagination{

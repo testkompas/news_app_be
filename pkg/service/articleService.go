@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/test_kompas/news_app/internal/pkg"
@@ -85,6 +86,9 @@ func (srv *ArticleService) AddArticle(article *entity.Article, authorId uint) (e
 	}
 	article.ReleasedDate = time.Now().Format("2006-01-02 15:04:05")
 	article.AuthorID = authorId
+
+	re, e := regexp.Compile(`<(.*?)>`)
+	article.Content = re.ReplaceAllString(article.Body, " ")
 
 	if e := srv.repo.AddArticle(article); e != nil {
 		err = pkg.NewError(

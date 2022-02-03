@@ -4,6 +4,7 @@ import (
 	"flag"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/test_kompas/news_app/configs"
 	"github.com/test_kompas/news_app/pkg/handler"
 	"github.com/test_kompas/news_app/pkg/repository"
@@ -28,6 +29,12 @@ var (
 func main() {
 	app := fiber.New(fiber.Config{})
 	handleArgs()
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "Authorization, Content-Type, Accept",
+		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
+	}))
 
 	app.Post("/login", authenticationHandler.Login)
 

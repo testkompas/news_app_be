@@ -7,6 +7,7 @@ import (
 type Article struct {
 	Title        string  `json:"title" gorm:"type:varchar(100);not null"`
 	Body         string  `json:"body" gorm:"type:text;not null"`
+	Content      string  `json:"content" gorm:"type:text"`
 	ReleasedDate string  `json:"released_date" gorm:"type:varchar(20);not null"`
 	Status       string  `json:"status" gorm:"type:varchar(11);not null"`
 	AuthorID     uint    `json:"author_id" gorm:"type:int(10);not null"`
